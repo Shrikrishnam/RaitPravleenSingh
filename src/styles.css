@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+.parent-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.sidebar {
+  flex: 1;
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}
+.headers-text {
+  font-size: 20px !important;
+  font-weight: normal !important;
+}
+.modal-container {
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+}
+.custom-border{
+  border-bottom: 1px solid #8f8c8c;
+}
+.sidebar-text{
+  font-size:  18px;
+  font-weight: bold;
+}
+
+
+
+.title-bar{
+  background: linear-gradient(to top, #007bff, #8bc8fd);
+  background: -webkit-linear-gradient(to top, #007bff, #8bc8fd);
+  background: -moz-linear-gradient(to top, #007bff, #8bc8fd);
+  background: -o-linear-gradient(to top, #007bff, #8bc8fd);
+  background: -ms-linear-gradient(to top, #007bff, #8bc8fd);
+}

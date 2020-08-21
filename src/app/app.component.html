@@ -1,0 +1,152 @@
+<div class="container-fluid mb-0 pb-0 pt-2 title-bar">
+  <div class="row">
+    <div class="col-12 text-center text-left-md col-md-1">
+      <img [src]="logo_url" class="" style="height: 150px; width: 150px;" />
+    </div>
+    <div class="col-12 col-md-10 text-center">
+      <label class="display-1 text-white">
+        Fitness Tracker
+      </label>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary mt-0 p-3">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbar"
+  >
+    <span class="text-white"><span class="navbar-toggler-icon"></span></span>
+  </button>
+
+  <div class="navbar-brand">
+    <label class="h3 text-white">
+      <i class="fa fa-dumbbell"></i>Fitness tracker
+    </label>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item h4 text-white">
+        <button (click)="landingpage()" class="btn btn-primary">
+          <span class="h5">
+            <i class="fa fa-home"></i>
+            &nbsp;&nbsp;Home
+          </span>
+        </button>
+      </li>
+      <li class="nav-item h4 text-white">
+        <button class="btn btn-primary">
+          <span class="h5">
+            <i class="fa fa-search"></i>
+            &nbsp;&nbsp;Search
+          </span>
+        </button>
+      </li>
+      <li class="nav-item h4 text-white">
+        <button (click)="placeAppointment()" class="btn btn-primary">
+          <span class="h5">
+            <i class="fa fa-square"></i>
+            &nbsp;&nbsp; Place Appointment
+          </span>
+        </button>
+      </li>
+      <li class="nav-item h4 text-white">
+        <button (click)="viewAppointment()" class="btn btn-primary">
+          <span class="h5">
+            <i class="fa fa-eye"></i>
+            &nbsp;&nbsp;View Appointment
+          </span>
+        </button>
+      </li>
+      <li class="nav-item h4 text-white">
+        <button (click)="contactUspage()" class="btn btn-primary">
+          <span class="h5"
+            ><i class="fa fa-phone"></i>&nbsp;&nbsp;Contact Us</span
+          >
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-9 mx-auto mx-md-0 col-md-2 order-12 order-md-1 text-center pl-0"
+    >
+      <!--Sidebar-->
+      <div style="background-color: #f5f5f5;" class="card shadow-lg">
+        <ul class="list-group list-group-flush border-0">
+          <li
+            class="list-group-item bg-transparent text-truncate mouse-pointer pt-5 pb-5 border-0"
+          >
+            <button
+              (click)="landingpage()"
+              class="btn btn-primary btn-block p-3 text-truncate"
+            >
+              <span class="sidebar-text">
+                <i class="fa fa-home"></i>
+                &nbsp;&nbsp;Home
+              </span>
+            </button>
+          </li>
+          <li
+            class="list-group-item bg-transparent text-truncate mouse-pointer pt-5 pb-5 border-0"
+          >
+            <button
+              class="btn btn-primary btn-block p-3 text-truncate"
+            >
+              <span class="sidebar-text">
+                <i class="fa fa-search"></i>
+                &nbsp;&nbsp;Search
+              </span>
+            </button>
+          </li>
+          <li
+            class="list-group-item bg-transparent text-truncate mouse-pointer pt-5 pb-5 border-0"
+          >
+            <button
+              (click)="placeAppointment()"
+              class="btn btn-primary btn-block p-3 text-truncate"
+            >
+              <span class="sidebar-text">
+                <i class="fa fa-square"></i>
+                &nbsp;&nbsp; Place Appointment
+              </span>
+            </button>
+          </li>
+          <li
+            class="list-group-item bg-transparent text-truncate mouse-pointer pt-5 pb-5 border-0"
+          >
+            <button
+              (click)="viewAppointment()"
+              class="btn btn-primary btn-block p-3 text-truncate"
+            >
+              <span class="sidebar-text">
+                <i class="fa fa-eye"></i>
+                &nbsp;&nbsp;View Appointment
+              </span>
+            </button>
+          </li>
+          <li
+            class="list-group-item bg-transparent text-truncate mouse-pointer pt-5 pb-5 border-0"
+          >
+            <button
+              (click)="contactUspage()"
+              class="btn btn-primary btn-block p-3 text-truncate"
+            >
+              <span class="sidebar-text"
+                ><i class="fa fa-phone"></i>&nbsp;&nbsp;Contact Us</span
+              >
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 col-md-9 mr-auto order-1 order-md-12 mt-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

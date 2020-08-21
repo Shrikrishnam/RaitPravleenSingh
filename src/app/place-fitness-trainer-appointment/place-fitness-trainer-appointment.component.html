@@ -1,0 +1,356 @@
+<div class="container">
+  <div class="container text-center">
+    <label class="h1 font-weight-normal">{{ formTitle }}</label>
+  </div>
+  <div class="jumbotron text-center">
+    <form [formGroup]="fitnessForm" (ngSubmit)="onSubmit()">
+      <div class="row mt-5">
+        <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Name</span>
+            </div>
+            <input
+              type="text"
+              placeholder="First name e.g. Tom"
+              class="form-control"
+              formControlName="firstname"
+              autofocus
+            />
+            <input
+              type="text"
+              placeholder="Last name e.g. Clark"
+              class="form-control"
+              formControlName="lastname"
+            />
+          </div>
+          <div class="text-left">
+            <small
+              class="text-danger"
+              *ngIf="
+                (fitnessForm.controls.firstname.touched &&
+                  fitnessForm.controls.firstname.errors?.required) ||
+                fitnessForm.controls.lastname.errors?.required ||
+                fitnessForm.controls.firstname.errors?.pattern ||
+                fitnessForm.controls.lastname.errors?.pattern
+              "
+              >*First and last name is required and must only contain
+              alphabets</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Email</span>
+            </div>
+            <input
+              type="email"
+              placeholder="Email e.g. user@example.com"
+              class="form-control"
+              formControlName="email"
+            />
+          </div>
+          <div class="text-left">
+            <small
+              class="text-danger"
+              *ngIf="
+                (fitnessForm.controls.email.touched &&
+                  fitnessForm.controls.email.errors?.required) ||
+                fitnessForm.controls.email.errors?.pattern
+              "
+              >*Email incorrect</small
+            >
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Ph no</span>
+            </div>
+            <input
+              type="tel"
+              placeholder="Phone number e.g. 9898887876"
+              class="form-control"
+              formControlName="phonenumber"
+            />
+          </div>
+          <div class="text-left">
+            <small
+              class="text-danger"
+              *ngIf="
+                (fitnessForm.controls.phonenumber.touched &&
+                  fitnessForm.controls.phonenumber.errors?.required) ||
+                fitnessForm.controls.phonenumber.errors?.pattern ||
+                fitnessForm.controls.phonenumber.errors?.minlength ||
+                fitnessForm.controls.phonenumber.errors?.maxlength
+              "
+              >*Phone number incorrect</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Age</span>
+            </div>
+            <input
+              type="number"
+              placeholder="Age must be between 19 to 59"
+              class="form-control"
+              formControlName="age"
+            />
+          </div>
+          <div class="text-left">
+            <small
+              class="text-danger"
+              *ngIf="
+                (fitnessForm.controls.age.touched &&
+                  fitnessForm.controls.age.errors?.required) ||
+                fitnessForm.controls.age.errors?.min ||
+                fitnessForm.controls.age.errors?.max
+              "
+              >*Age must be between 19 to 59</small
+            >
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white"
+                >Preference</span
+              >
+            </div>
+            <select class="custom-select" formControlName="trainerPreference">
+              <option value="Male Trainer">Male trainer</option>
+              <option value="Female Trainer">Female trainer</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 col-sm-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white"
+                >Package</span
+              >
+            </div>
+            <select
+              class="custom-select"
+              formControlName="packages"
+              (change)="changePackage($event.target.value)"
+            >
+              <option value="Basic Training package"
+                >Basic Training package</option
+              >
+              <option value="Silver package conatins (Yoga + Basic Package)"
+                >Silver package conatins (Yoga + Basic Package)</option
+              >
+              <option
+                value="Premium package conatins (Yoga + Basic Package + Cardio)"
+                >Premium package conatins (Yoga + Basic Package +
+                Cardio)</option
+              >
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white"
+                >Physiotherapist</span
+              >
+            </div>
+            <select class="custom-select" formControlName="physiotherapist">
+              <option value="yes">yes</option>
+              <option value="no">no</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Inr</span>
+            </div>
+            <input type="number" class="form-control" formControlName="inr" />
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary text-white">Paisa</span>
+            </div>
+            <input type="number" class="form-control" formControlName="paisa" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12 col-sm-12">
+          <fieldset class="border-0">
+            <legend>Address</legend>
+            <div class="row">
+              <div class="col-12">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"
+                      >Locality</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Type the locality address"
+                    class="form-control"
+                    formControlName="streetaddress"
+                  />
+                </div>
+                <div class="text-left">
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      fitnessForm.controls.streetaddress.touched &&
+                      fitnessForm.controls.streetaddress.errors?.required
+                    "
+                    >*Locality is required field</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"
+                      >State</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Which state you live in e.g Maharashtra"
+                    class="form-control"
+                    formControlName="state"
+                  />
+                </div>
+                <div class="text-left">
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      fitnessForm.controls.state.touched &&
+                      fitnessForm.controls.state.errors?.required
+                    "
+                    >*State is required field</small
+                  >
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"
+                      >City</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="And the city e.g Thane"
+                    class="form-control"
+                    formControlName="city"
+                  />
+                </div>
+                <div class="text-left">
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      fitnessForm.controls.city.touched &&
+                      fitnessForm.controls.city.errors?.required
+                    "
+                    >*City is required field</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"
+                      >Country</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Country e.g India"
+                    class="form-control"
+                    formControlName="country"
+                  />
+                </div>
+                <div class="text-left">
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      fitnessForm.controls.country.touched &&
+                      fitnessForm.controls.country.errors?.required
+                    "
+                    >*Country is required field</small
+                  >
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"
+                      >Pin code</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="e.g 400-607"
+                    class="form-control"
+                    formControlName="pincode"
+                  />
+                </div>
+                <div class="text-left">
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      fitnessForm.controls.pincode.touched &&
+                      (fitnessForm.controls.pincode.errors?.required ||
+                        fitnessForm.controls.pincode.errors?.pattern ||
+                        fitnessForm.controls.pincode.errors?.minlength ||
+                        fitnessForm.controls.pincode.errors?.maxlength)
+                    "
+                    >*Incorrect pincode</small
+                  >
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="row mt-5 pt-4">
+        <div class="col-12 col-sm-12">
+          <button
+            type="submit"
+            class="btn btn-success text-white btn-block"
+            [disabled]="fitnessForm.invalid"
+          >
+            {{ formTitle }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,474 @@
+<div class="container mb-3">
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>
+            <span class="h1 headers-text">Sl NO</span>
+          </th>
+          <th>
+            <span class="h2 headers-text">Name</span>
+          </th>
+          <th>
+            <span class="h3 headers-text">Address</span>
+          </th>
+          <th>
+            <span class="h4 headers-text">City</span>
+          </th>
+          <th>
+            <span class="h5 headers-text">Package</span>
+          </th>
+          <th>
+            <span class="h6 headers-text">Trainer Preference</span>
+          </th>
+          <th>
+            <span class="h7 headers-text">Phone</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let index of appointmentsData; index as i">
+          <td class="text-center">
+            {{ i + 1 }}
+          </td>
+          <td>
+            {{ index.firstname + " " + index.lastname }}
+          </td>
+          <td>
+            {{
+              index.streetaddress + ", " + index.state + ", " + index.pincode
+            }}
+            <br />
+            {{ "(" + index.country + ")" }}
+          </td>
+          <td>
+            {{ index.city }}
+          </td>
+          <td>
+            <span class="h6">Package</span>: {{ index.packages }}<br />
+            <span class="h6">Cost</span>:
+            {{ index.inr + "." + index.paisa }} inr
+          </td>
+          <td>
+            {{ index.trainerpreference }}
+          </td>
+          <td>
+            {{ index.phonenumber }}
+          </td>
+          <td class="bg-transparent border-0">
+            <button
+              class="btn btn-dark text-white"
+              type="button"
+              (click)="allowModal(true, index.id)"
+            >
+              <i class="fa fa-pencil"></i> Edit
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger text-white"
+              (click)="deleteAppointment(index.id)"
+            >
+            <i class="fa fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--Modal for edit -->
+
+<div *ngIf="modalStatus" class="modal-container">
+  <div class="text-right w-100">
+    <div class="container">
+      <div class="jumbotron text-center mt-5 pb-4 pt-4">
+        <label class="h1 font-weight-normal">Edit Appointment</label>
+        <form [formGroup]="fitnessForm" (ngSubmit)="onSubmit()">
+          <div class="row mt-5">
+            <div class="col">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Name</span
+                  >
+                </div>
+                <input
+                  type="text"
+                  placeholder="First name e.g. Tom"
+                  class="form-control"
+                  formControlName="firstname"
+                />
+
+                <input
+                  type="text"
+                  placeholder="Last name e.g. Clark"
+                  class="form-control"
+                  formControlName="lastname"
+                />
+              </div>
+              <div class="text-left">
+                <small
+                  class="text-danger"
+                  *ngIf="
+                    (fitnessForm.controls.firstname.touched &&
+                      fitnessForm.controls.firstname.errors?.required) ||
+                    fitnessForm.controls.lastname.errors?.required ||
+                    fitnessForm.controls.firstname.errors?.pattern ||
+                    fitnessForm.controls.lastname.errors?.pattern
+                  "
+                  >*First and last name is required and must only contain
+                  alphabets</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Email</span
+                  >
+                </div>
+                <input
+                  type="email"
+                  placeholder="Email e.g. user@example.com"
+                  class="form-control"
+                  formControlName="email"
+                />
+              </div>
+              <div class="text-left">
+                <small
+                  class="text-danger"
+                  *ngIf="
+                    (fitnessForm.controls.email.touched &&
+                      fitnessForm.controls.email.errors?.required) ||
+                    fitnessForm.controls.email.errors?.pattern
+                  "
+                  >*Email incorrect</small
+                >
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Ph no</span
+                  >
+                </div>
+                <input
+                  type="tel"
+                  placeholder="Phone number e.g. 9898887876"
+                  class="form-control"
+                  formControlName="phonenumber"
+                />
+              </div>
+              <div class="text-left">
+                <small
+                  class="text-danger"
+                  *ngIf="
+                    (fitnessForm.controls.phonenumber.touched &&
+                      fitnessForm.controls.phonenumber.errors?.required) ||
+                    fitnessForm.controls.phonenumber.errors?.pattern ||
+                    fitnessForm.controls.phonenumber.errors?.minlength ||
+                    fitnessForm.controls.phonenumber.errors?.maxlength
+                  "
+                  >*Phone number incorrect</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Age</span
+                  >
+                </div>
+                <input
+                  type="number"
+                  placeholder="Age must be between 19 to 59"
+                  class="form-control"
+                  formControlName="age"
+                />
+              </div>
+              <div class="text-left">
+                <small
+                  class="text-danger"
+                  *ngIf="
+                    (fitnessForm.controls.age.touched &&
+                      fitnessForm.controls.age.errors?.required) ||
+                    fitnessForm.controls.age.errors?.min ||
+                    fitnessForm.controls.age.errors?.max
+                  "
+                  >*Age must be between 19 to 59</small
+                >
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Preference</span
+                  >
+                </div>
+                <select
+                  class="custom-select"
+                  formControlName="trainerPreference"
+                >
+                  <option value="Male Trainer">Male trainer</option>
+                  <option value="Female Trainer">Female trainer</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-sm-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Package</span
+                  >
+                </div>
+                <select
+                  class="custom-select"
+                  formControlName="packages"
+                  (change)="changePackage($event.target.value)"
+                >
+                  <option value="Basic Training package"
+                    >Basic Training package</option
+                  >
+                  <option value="Silver package conatins (Yoga + Basic Package)"
+                    >Silver package conatins (Yoga + Basic Package)</option
+                  >
+                  <option
+                    value="Premium package conatins (Yoga + Basic Package + Cardio)"
+                    >Premium package conatins (Yoga + Basic Package +
+                    Cardio)</option
+                  >
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Physiotherapist</span
+                  >
+                </div>
+                <select class="custom-select" formControlName="physiotherapist">
+                  <option value="yes">yes</option>
+                  <option value="no">no</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Inr</span
+                  >
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="inr"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-primary text-white"
+                    >Paisa</span
+                  >
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="paisa"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 col-sm-12">
+              <fieldset>
+                <legend>Address</legend>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="input-group mt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary text-white"
+                          >Locality</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Type the locality address"
+                        class="form-control"
+                        formControlName="streetaddress"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          fitnessForm.controls.streetaddress.touched &&
+                          fitnessForm.controls.streetaddress.errors?.required
+                        "
+                        >*Locality is required field</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <div class="input-group mt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary text-white"
+                          >State</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Which state you live in e.g Maharashtra"
+                        class="form-control"
+                        formControlName="state"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          fitnessForm.controls.state.touched &&
+                          fitnessForm.controls.state.errors?.required
+                        "
+                        >*State is required field</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="input-group mt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary text-white"
+                          >City</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="And the city e.g Thane"
+                        class="form-control"
+                        formControlName="city"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          fitnessForm.controls.city.touched &&
+                          fitnessForm.controls.city.errors?.required
+                        "
+                        >*City is required field</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <div class="input-group mt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary text-white"
+                          >Country</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Country e.g India"
+                        class="form-control"
+                        formControlName="country"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          fitnessForm.controls.country.touched &&
+                          fitnessForm.controls.country.errors?.required
+                        "
+                        >*Country is required field</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="input-group mt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-primary text-white"
+                          >Pin code</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="e.g 400-607"
+                        class="form-control"
+                        formControlName="pincode"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <small
+                        class="text-danger"
+                        *ngIf="
+                          fitnessForm.controls.pincode.touched &&
+                          (fitnessForm.controls.pincode.errors?.required ||
+                            fitnessForm.controls.pincode.errors?.pattern ||
+                            fitnessForm.controls.pincode.errors?.minlength ||
+                            fitnessForm.controls.pincode.errors?.maxlength)
+                        "
+                        >*Incorrect pincode</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="row mt-5 pt-4">
+            <div class="col-12 col-sm-12">
+              <button
+                type="submit"
+                class="btn btn-success text-white btn-block"
+                [disabled]="fitnessForm.invalid"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12 col-sm-12">
+              <button
+                class="btn btn-danger text-white btn-block"
+                (click)="allowModal(false, -100)"
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
